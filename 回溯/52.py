@@ -9,23 +9,7 @@ n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并
 
 
 class Solution:
-    def solveNQueens2(self, n: int):
-        res = []
-        s = "." * n
-
-        def backtrack(i, tmp, col, sum, minus):
-            if i == n:
-                res.append(tmp)
-                return
-            for j in range(n):
-                if j not in col and i + j not in sum and i - j not in minus:
-                    backtrack(i + 1, tmp + [s[:j] + "Q" + s[j + 1:]],
-                              col | {j}, sum | {i + j}, minus | {i - j})
-
-        backtrack(0, [], set(), set(), set())
-        return res
-
-    def solveNQueens(self, n: int):
+    def totalNQueens(self, n: int):
         res = []
         s = "." * n
 
@@ -39,14 +23,12 @@ class Solution:
                               col | {j}, sum | {i + j}, minus | {i - j})
 
         backtrace(0, [], set(), set(), set())
-        return res
+        return len(res)
 
     pass
 
 
 if __name__ == '__main__':
     sol = Solution()
-    max = sol.solveNQueens2(4)  # false
-    max = sol.solveNQueens(4)  # false
-    # max = sol.permuteUnique([1, 2, 3])  # false
+    max = sol.totalNQueens(4)
     print(max)
