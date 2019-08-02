@@ -26,14 +26,6 @@ class Solution:
         if not nums:
             return []
 
-        # # 递归
-        # def helper(i, tmp):
-        #     res.append(tmp)
-        #     for j in range(i, size):
-        #         helper(j + 1, tmp + [nums[j]])
-
-        # helper(0, [])
-
         def bt(first):
             res.append(path[:])
             if first == len(nums):
@@ -47,19 +39,6 @@ class Solution:
         res, path = [], []
         bt(0)
         return res
-
-        # def dfs(first):
-        #     res.append(sub[:])
-        #     if first == len(nums):
-        #         return
-        #     for i in range(first, len(nums)):
-        #         sub.append(nums[i])
-        #         dfs(i + 1)
-        #         sub.pop()
-
-        # res, sub = [], []
-        # dfs(0)
-        # return res
 
     # dp
     # dp 定义以i为结尾的子串的子集
