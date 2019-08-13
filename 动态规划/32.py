@@ -31,7 +31,7 @@
 class Solution:
     def longestValidParentheses(self, s: str) -> int:
         if not s:
-            return ""
+            return 0
         n = len(s)
         dp = [0] * n
         for i in range(1, n):
