@@ -51,6 +51,8 @@ dp[1][0] == 0
 
 class Solution:
     def minDistance(self, w1: str, w2: str) -> int:
+        if not w1 and not w2:
+            return 0
         w1l = len(w1)
         w2l = len(w2)
         dp = [[0 for _ in range(w2l + 1)] for __ in range(w1l + 1)]
