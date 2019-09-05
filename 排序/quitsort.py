@@ -4,7 +4,8 @@ class Solution:
         # print(self.bubble_sort(intervals))
         # print(self.select_sort(intervals))
         # print(self.insert_sort(intervals))
-        print(self.merge_sort(intervals))
+        # print(self.merge_sort(intervals))
+        print(self.radix_sort(intervals))
         pass
 
     # 冒泡排序 O(N2)
@@ -81,8 +82,27 @@ class Solution:
                 right.append(item)
         return self.quick_sort(left) + [mid] + self.quick_sort(right)  # 重要
 
-    # 希尔排序
     # 桶排序
+    def radix_sort(self, arr):
+        # res = []
+        i = 0  # 当前正在处理的位数值
+        max_num = max(arr)
+        max_num_len = len(str(max_num))
+        while i < max_num_len:
+            bucket_list = [[] for _ in range(10)]
+            for item in arr:
+                wei = int(item / (10**i)) % 10
+                bucket_list[wei].append(item)
+            # print(bucket_list)
+            arr.clear()
+            for bucket in bucket_list:
+                for v in bucket:
+                    arr.append(v)
+            i += 1
+            pass
+        return arr
+
+    # 希尔排序
     # 基数排序
     # 堆排序
 
