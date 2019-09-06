@@ -18,35 +18,21 @@ class Solution:
 
     def longestCount(self, root: TreeNode) -> int:
         if not root:
-            self.maxLen = max(self.maxLen, 0)
             return 0
-        if not root.left and not root.right:
-            self.maxLen = max(self.maxLen, 1)
-            print(str(root.val) + '=' + str(1))
-            return 1
+        left = self.longestCount(root.left)
+        right = self.longestCount(root.right)
 
-        left = self.longestCount(root.left) if root.left else 0
-        right = self.longestCount(root.right) if root.right else 0
-
-        res = 1
-        if root.left and root.right and root.left.val == root.val and root.right.val == root.val:
-            res += max(left, right)
-            self.maxLen = max(self.maxLen, left + right + 1)
-        elif root.left and root.left.val == root.val:
-            res += left
-            self.maxLen = max(self.maxLen, left + 1)
-        elif root.right and root.right.val == root.val:
-            res += right
-            self.maxLen = max(self.maxLen, right + 1)
-        else:
-            self.maxLen = max(self.maxLen, 1)
-
-        print(str(root.val) + '=' + str(res))
-        return res
+        arrow_left, arrow_right = 0, 0
+        if root.left and root.left.val == root.val:
+            arrow_left += left + 1
+        if root.right and root.right.val == root.val:
+            arrow_right += right + 1
+        self.maxLen = max(self.maxLen, arrow_left + arrow_right)
+        return max(arrow_left, arrow_right)
 
     def longestUnivaluePath(self, root: TreeNode) -> int:
         self.longestCount(root)
-        return max(self.maxLen - 1, 0)
+        return self.maxLen
         pass
 
 
