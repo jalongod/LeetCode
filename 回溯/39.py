@@ -32,7 +32,7 @@ candidates 中的数字可以无限制重复被选取。
 
 
 class Solution:
-    def combinationSum(self, candidates, target: int):
+    def combinationSum(self, candidates, target):
         # sort
         candidates.sort()
         size = len(candidates)
