@@ -26,7 +26,6 @@ class Solution:
         self.cache[head] = res
         res.next = self.copyRandomList(head.next)
         res.random = self.copyRandomList(head.random)
-
         return res
 
 
