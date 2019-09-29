@@ -40,7 +40,7 @@ class Solution:
                     arr[j], arr[j + 1] = arr[j + 1], arr[j]  # swap
         return arr
 
-    # 归并排序 O(n log n)
+    # 归并排序 O(n log n) 稳定排序
     def merge_sort(self, arr):
         def merge_arr(arr1, arr2):
             res = []
@@ -68,7 +68,7 @@ class Solution:
 
         pass
 
-    # 快速排序 递归分治 时间复杂度 O(NlogN)
+    # 快速排序 递归分治 时间复杂度 O(NlogN)  不稳定排序
     def quick_sort(self, arr):
         if len(arr) < 2:
             return arr
