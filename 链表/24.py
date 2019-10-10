@@ -29,7 +29,26 @@ class Solution:
         next.next = head
         return next
 
-    pass
+    def swapPairs_while(self, head: ListNode) -> ListNode:
+        pre_head = ListNode(0)
+        pre_head.next = head
+        temp = pre_head
+        while (temp.next and temp.next.next):
+            start = temp.next
+            end = temp.next.next
+            temp.next = end
+            start.next = end.next
+            end.next = start
+            temp = start
+        return pre_head.next
+
+    def swapPair_recur(self, head: ListNode) -> ListNode:
+        if not head or not head.next:
+            return head
+        end = head.next
+        head.next = self.swapPair_recur(end.next)
+        end.next = head
+        return end
 
 
 node1 = ListNode(1)
@@ -47,5 +66,5 @@ node3.next = node4
 # n2.next = n3
 sol = Solution()
 # res = sol.mergeKLists([node1, n1])
-res = sol.swapPairs(node1)
+res = sol.swapPair_recur(node1)
 print(res)
