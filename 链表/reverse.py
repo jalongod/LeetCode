@@ -16,7 +16,7 @@ class Node(object):
             self.next.des()
 
 
-def reverse(head):
+def reverse(head):  # 需要背过
     if (head is None) or (head.next is None):
         return head
     p1 = head
@@ -31,21 +31,16 @@ def reverse(head):
     return p1
 
 
-def reverse2(head):  # 再写一遍
-    if not head or not head.next:
-        return head
-    p1 = head
-    p2 = head.next
-    while p2:
-        p3 = p2.next
-        p2.next = p1
-        p1 = p2
-        p2 = p3
-    head.next = None
-    return p1
+def reverse2(head):  # 更好的写法  需要背过
+    pre, cur = None, head
+    while (cur):
+        next = cur.next
+        cur.next = pre
+        pre, cur = cur, next
+    return pre
 
 
-def reverse3(head):  # 递归实现 重要
+def reverse3(head):  # 递归实现 重要 需要背过
     if not head or not head.next:
         return head
     res = reverse3(head.next)
@@ -61,6 +56,6 @@ if __name__ == '__main__':
     node4 = Node('4', node3)
     node4.des()
     print('began to reverse ')
-    noder = reverse3(node4)
+    noder = reverse2(node4)
     print('success to reverse ')
     noder.des()
