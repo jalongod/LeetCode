@@ -53,27 +53,21 @@ class Solution:
     def minDistance(self, w1: str, w2: str) -> int:
         if not w1 and not w2:
             return 0
-        w1l = len(w1)
-        w2l = len(w2)
-        dp = [[0 for _ in range(w2l + 1)] for __ in range(w1l + 1)]
+        len1, len2 = len(w1), len(w2)
+        dp = [[0 for _ in range(len2 + 1)] for __ in range(len1 + 1)]
+        for i in range(1, len1 + 1):
+            dp[i][0] = i
+        for j in range(1, len2 + 1):
+            dp[0][j] = j
+        for i in range(1, len1 + 1):
+            for j in range(1, len2 + 1):
 
-        for i in range(0, w1l + 1):
-            for j in range(0, w2l + 1):
-                if i == 0 and j == 0:
-                    dp[0][0] = 0
-                    continue
-                if i == 0:
-                    dp[i][j] = j
-                    continue
-                if j == 0:
-                    dp[i][j] = i
-                    continue
                 if w1[i - 1] == w2[j - 1]:
                     dp[i][j] = dp[i - 1][j - 1]
                 else:
                     dp[i][j] = min(dp[i][j - 1], dp[i - 1][j],
                                    dp[i - 1][j - 1]) + 1
-        return dp[w1l][w2l]
+        return dp[len1][len2]
 
 
 sol = Solution()
