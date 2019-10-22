@@ -13,10 +13,31 @@
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 '''
 
+# 1 1 1 2 2 3 3 3 4  5
+
+import types
+
 
 class Solution:
     def canPartitionKSubsets(self, nums, k: int) -> bool:
-        pass
+        val = sum(nums)/k
+        if not isinstance(val, int):
+            return False
+        nums.sort(reverse=True)
+        for i in nums:
+            if nums[i] > val:
+                return False
+            elif nums[i] == val:
+                nums.pop(i)
+
+        def match(nums, val):
+            if len(nums) == 0:
+                return True
+            if match(nums[-1], val) or match():
+                pass
+            
+            pass
+        pass        
 
 
 sol = Solution()
