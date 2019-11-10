@@ -33,6 +33,10 @@
 from typing import List
 # @lc code=start
 
+# 方法有：
+# 1.O(n^2)枚举 x y
+# 2.O(n) 左右边界往中间夹逼
+
 
 class Solution:
     # 暴力，i j
@@ -47,7 +51,7 @@ class Solution:
 
     # 左右往中间逼近
     def maxArea(self, height: List[int]) -> int:
-        i, j, res = 0, len(height)-1, 0
+        i, j, res = 0, len(height) - 1, 0
         while i < j:
             minHeight = 0
             if height[i] < height[j]:
@@ -56,12 +60,12 @@ class Solution:
             else:
                 minHeight = height[j]
                 j -= 1
-            area = minHeight*(j-i+1)
+            area = minHeight * (j - i + 1)
             res = max(res, area)
         return res
 
-# @lc code=end
 
+# @lc code=end
 
 sol = Solution()
 sol.maxArea()
