@@ -33,7 +33,7 @@
 # 1 暴力 i,j,k
 # 2 i,j hash 容易覆盖重复元素，暂不考虑
 # 3 夹逼：先排序 i<0返回结果 从i+1到n-1中查找，如果三者的和大于0，移动右指针，否则移动左指针
-
+# 4 夹逼 去重
 from typing import List
 
 
@@ -56,29 +56,58 @@ class Solution:
     #                         res.append(thr)
     #     return res
 
-    # 3. i,j,hash
+    # # 3. i,j,hash
+    # def threeSum(self, nums: List[int]) -> List[List[int]]:
+    #     if len(nums) == 0:
+    #         return []
+    #     nums.sort()
+    #     res, length, i = [], len(nums), 0
+    #     while nums[i] <= 0 and i < length - 2:
+    #         j, k, u = i + 1, length - 1, {}
+    #         if i > 0 and nums[i] == nums[i - 1]:
+    #             i += 1
+    #             continue
+    #         while j < k:
+    #             if nums[j] in u:
+    #                 j += 1
+    #                 continue
+    #             if nums[k] in u:
+    #                 k -= 1
+    #                 continue
+    #             sum = nums[i] + nums[j] + nums[k]
+    #             if sum == 0:
+    #                 u.setdefault(nums[j])
+    #                 u.setdefault(nums[k])
+    #                 res.append([nums[i], nums[j], nums[k]])
+    #                 j += 1
+    #                 k -= 1
+    #             elif sum < 0:
+    #                 j += 1
+    #             else:
+    #                 k -= 1
+    #         i += 1
+
+    #     return res
+
+    # 4. 夹逼 去重
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         if len(nums) == 0:
             return []
         nums.sort()
         res, length, i = [], len(nums), 0
         while nums[i] <= 0 and i < length - 2:
-            j, k, u = i + 1, length - 1, {}
+            j, k = i + 1, length - 1
             if i > 0 and nums[i] == nums[i - 1]:
                 i += 1
                 continue
             while j < k:
-                if nums[j] in u:
-                    j += 1
-                    continue
-                if nums[k] in u:
-                    k -= 1
-                    continue
                 sum = nums[i] + nums[j] + nums[k]
                 if sum == 0:
-                    u.setdefault(nums[j])
-                    u.setdefault(nums[k])
                     res.append([nums[i], nums[j], nums[k]])
+                    while j < k and nums[j] == nums[j + 1]:
+                        j += 1
+                    while j < k and nums[k] == nums[k - 1]:
+                        k -= 1
                     j += 1
                     k -= 1
                 elif sum < 0:
