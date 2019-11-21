@@ -57,18 +57,16 @@ class ListNode:
 
 class Solution:
     def insertionSortList(self, head: ListNode) -> ListNode:
-        if not head:
+        if not head or not head.next:
             return head
-        h1 = head
-        while h1:
-            h2 = h1.next
-            h3 = head
-            while h3 not h1:
-                if h3.val < h2.val:
-                    h3 = h3.next
-                else:
-                    h1.next = h2.next
+        zz = ListNode(0)
+        zz.next = head
+        tn = head.next
+        while tn:
 
-            h1 = h1.next
+            tn = tn.next
+
         pass
+
+
 # @lc code=end

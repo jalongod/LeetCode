@@ -71,28 +71,28 @@ class Solution:
         #     return None
         # # 哈希表解法
 
-        # visited = set()
-        # node = head
-        # while node is not None:
-        #     if node in visited:
-        #         return node
-        #     else:
-        #         visited.add(node)
-        #         node = node.next
-
-        # return None
-
-        if not head or not head.next:
+        if not head:
             return None
-        slow, fast = head, head.next
-        while (slow is not fast) and (fast.next is not None):
-            if fast.next and fast.next.next:
-                fast = fast.next.next
-            slow = slow.next
-        if slow is fast:
-            return fast
-        else:
-            return None
+        # 哈希表解法
+        tmp = {}
+        while head:
+            if head in tmp:
+                return head
+            tmp[head] = True
+            head = head.next
+        return None
+
+        # if not head or not head.next:
+        #     return None
+        # slow, fast = head, head.next
+        # while (slow is not fast) and (fast.next is not None):
+        #     if fast.next and fast.next.next:
+        #         fast = fast.next.next
+        #     slow = slow.next
+        # if slow is fast:
+        #     return fast
+        # else:
+        #     return None
 
 
 # @lc code=end
