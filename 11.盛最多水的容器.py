@@ -49,23 +49,41 @@ class Solution:
     #             res = max(res, rl)
     #     return res
 
+    # # 左右往中间逼近
+    # def maxArea(self, height: List[int]) -> int:
+    #     i, j, res = 0, len(height) - 1, 0
+    #     while i < j:
+    #         minHeight = 0
+    #         if height[i] < height[j]:
+    #             minHeight = height[i]
+    #             i += 1
+    #         else:
+    #             minHeight = height[j]
+    #             j -= 1
+    #         area = minHeight * (j - i + 1)
+    #         res = max(res, area)
+    #     return res
+
     # 左右往中间逼近
     def maxArea(self, height: List[int]) -> int:
+        if not height or len(height) < 2:
+            return 0
         i, j, res = 0, len(height) - 1, 0
         while i < j:
-            minHeight = 0
+            w = j - i
+            h = min(height[i], height[j])
+            res = max(res, w * h)
             if height[i] < height[j]:
-                minHeight = height[i]
                 i += 1
             else:
-                minHeight = height[j]
                 j -= 1
-            area = minHeight * (j - i + 1)
-            res = max(res, area)
+        print(res)
         return res
+
+        pass
 
 
 # @lc code=end
 
 sol = Solution()
-sol.maxArea()
+sol.maxArea([1, 8, 6, 2, 5, 4, 8, 3, 7])
