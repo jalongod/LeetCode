@@ -42,23 +42,44 @@ class ListNode:
 
 class Solution:
     # 优先队列
+    # def mergeKLists(self, lists: List[ListNode]) -> ListNode:
+    #     if not lists:
+    #         return None
+    #     pq = []
+    #     for i in range(len(lists)):
+    #         if lists[i]:
+    #             heappush(pq, (lists[i].val, i))
+    #             lists[i] = lists[i].next
+    #     res = ListNode(0)
+    #     tail = res
+    #     while pq:
+    #         val, idx = heappop(pq)
+    #         tail.next = ListNode(val)
+    #         tail = tail.next
+    #         if lists[idx]:
+    #             heappush(pq, (lists[idx].val, idx))
+    #             lists[idx] = lists[idx].next
+    #     return res.next
+
+    # 默写 小顶堆
     def mergeKLists(self, lists: List[ListNode]) -> ListNode:
         if not lists:
             return None
+        res = ListNode(0)  # 头指针
+        tail = res  # 尾指针
         pq = []
         for i in range(len(lists)):
             if lists[i]:
                 heappush(pq, (lists[i].val, i))
                 lists[i] = lists[i].next
-        res = ListNode(0)
-        tail = res
+
         while pq:
-            val, idx = heappop(pq)
+            val, i = heappop(pq)
             tail.next = ListNode(val)
             tail = tail.next
-            if lists[idx]:
-                heappush(pq, (lists[idx].val, idx))
-                lists[idx] = lists[idx].next
+            if lists[i]:
+                heappush(pq, (lists[i].val, i))
+                lists[i] = lists[i].next
         return res.next
 
 
@@ -77,4 +98,5 @@ ll1.next = ll2
 ll2.next = ll3
 
 sol = Solution()
-sol.mergeKLists([l1, ll1])
+res = sol.mergeKLists([l1, ll1])
+print(res)

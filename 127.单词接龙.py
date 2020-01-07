@@ -1,0 +1,112 @@
+#
+# @lc app=leetcode.cn id=127 lang=python3
+#
+# [127] 单词接龙
+#
+# https://leetcode-cn.com/problems/word-ladder/description/
+#
+# algorithms
+# Medium (37.26%)
+# Likes:    160
+# Dislikes: 0
+# Total Accepted:    15.2K
+# Total Submissions: 39.9K
+# Testcase Example:  '"hit"\n"cog"\n["hot","dot","dog","lot","log","cog"]'
+#
+# 给定两个单词（beginWord 和 endWord）和一个字典，找到从 beginWord 到 endWord
+# 的最短转换序列的长度。转换需遵循如下规则：
+#
+#
+# 每次转换只能改变一个字母。
+# 转换过程中的中间单词必须是字典中的单词。
+#
+#
+# 说明:
+#
+#
+# 如果不存在这样的转换序列，返回 0。
+# 所有单词具有相同的长度。
+# 所有单词只由小写字母组成。
+# 字典中不存在重复的单词。
+# 你可以假设 beginWord 和 endWord 是非空的，且二者不相同。
+#
+#
+# 示例 1:
+#
+# 输入:
+# beginWord = "hit",
+# endWord = "cog",
+# wordList = ["hot","dot","dog","lot","log","cog"]
+#
+# 输出: 5
+#
+# 解释: 一个最短转换序列是 "hit" -> "hot" -> "dot" -> "dog" -> "cog",
+# ⁠    返回它的长度 5。
+#
+#
+# 示例 2:
+#
+# 输入:
+# beginWord = "hit"
+# endWord = "cog"
+# wordList = ["hot","dot","dog","lot","log"]
+#
+# 输出: 0
+#
+# 解释: endWord "cog" 不在字典中，所以无法进行转换。
+#
+#
+
+from typing import List
+
+
+# @lc code=start
+class Solution:
+    memo = dict()
+    res = 0
+
+    def getLength(self, word1, word2):
+        res = 0
+        for i in range(len(word1)):
+            if word1[i] != word2[i]:
+                res += 1
+        return res
+
+    def filterWords(self, beginWord, wordList) -> List[str]:
+        if not wordList or len(wordList) == 0:
+            return []
+        res = []
+        for word in wordList:
+            if not (beginWord, word) in self.memo:
+                length = self.getLength(beginWord, word)
+                self.memo.setdefault((beginWord, word), length)
+                self.memo.setdefault((word, beginWord), length)
+            if self.memo[(beginWord, word)] == 1:
+                res.append(word)
+        return res
+
+    def subladder(self, beginWord, endWord, wordList, length):
+        if beginWord == endWord:
+            self.res = length if self.res == 0 else min(self.res, length)
+            return
+        filterList = self.filterWords(beginWord, wordList)
+        for word in filterList:
+            length += 1
+            wordList.remove(word)
+            self.subladder(word, endWord, wordList, length)
+            wordList.append(word)
+            length -= 1
+
+    def ladderLength(self, beginWord: str, endWord: str,
+                     wordList: List[str]) -> int:
+        self.subladder(beginWord, endWord, wordList, 1)
+        return self.res
+        pass
+
+
+# @lc code=end
+
+sol = Solution()
+length = sol.ladderLength("hit", "cog",
+                          ["hot", "dot", "dog", "lot", "log", "cog"])
+print(length)

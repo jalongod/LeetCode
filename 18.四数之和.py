@@ -82,4 +82,5 @@ class Solution:
 # @lc code=end
 
 sol = Solution()
-sol.fourSum([1, 0, -1, 0, -2, 2], 0)
+res = sol.fourSum([1, 0, -1, 0, -2, 2], 0)
+print(res)
