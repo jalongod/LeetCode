@@ -109,4 +109,6 @@ class Solution:
 sol = Solution()
 length = sol.ladderLength("hit", "cog",
                           ["hot", "dot", "dog", "lot", "log", "cog"])
+                          
 print(length)
+
