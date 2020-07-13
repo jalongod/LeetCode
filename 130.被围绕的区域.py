@@ -45,11 +45,99 @@ from typing import List
 
 # @lc code=start
 class Solution:
+    dirs = [(-1, 0), (0, 1), (1, 0), (0, -1)]  #上右下左
+
     def solve(self, board: List[List[str]]) -> None:
         """
         Do not return anything, modify board in-place instead.
         """
-        pass
+        def bfs(board, node):
+            que = []
+            que.append(node)
+            isLand = True
+            memo = []
+            while que:
+                cur = que.pop(0)
+                x, y = cur[0], cur[1]
+                board[x][y] = 'N'
+                if x >= len(board) - 1 or y >= len(
+                        board[0]) - 1 or x <= 0 or y <= 0:
+                    isLand = False
+                # add to memo
+                memo.append(cur)
+                for a, b in self.dirs:
+                    next_x, next_y = x + a, y + b
+                    if next_x < len(board) and next_y < len(
+                            board[0]
+                    ) and next_x >= 0 and next_y >= 0 and board[next_x][
+                            next_y] == "O":
+                        que.append([next_x, next_y])
+            for n in memo:
+                if isLand:
+                    board[n[0]][n[1]] = 'X' if isLand else 'N'
+
+        height = len(board)
+        if not height:
+            return
+        width = len(board[0])
+        if not width:
+            return
+        #上边
+        for j in range(width):
+            if board[0][j] == 'O':
+                bfs(board, [0, j])
+        #下边
+        for j in range(width):
+            if board[-1][j] == 'O':
+                bfs(board, [-1, j])
+
+        #左边
+        for j in range(height):
+            if board[0][j] == 'O':
+                bfs(board, [0, j])
+        #右边
+        for j in range(height):
+            if board[-1][j] == 'O':
+                bfs(board, [-1, j])
+
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                if board[i][j] == 'O':
+                    board[i][j] = 'X'
+
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                if board[i][j] == 'N':
+                    board[i][j] = 'O'
 
 
 # @lc code=end
+
+sol = Solution()
+input = []
+
+sol.solve(input)
+a = 1
+"""
+["X","O","O","X","X","X","O","X","O","O"],
+["X","X","X","X","X","X","X","X","X","X"],
+["X","X","X","X","X","X","X","X","X","X"],
+["X","X","X","X","X","X","X","X","X","O"],
+["O","X","X","X","X","X","X","X","X","X"],
+["X","X","X","X","X","X","X","X","X","X"],
+["O","X","X","X","X","X","X","X","X","O"],
+["O","X","X","X","X","X","X","X","X","X"],
+["X","X","X","X","X","X","X","X","O","O"],
+["X","X","X","O","O","X","O","X","X","O"]]
+
+["X","O","O","X","X","X","O","X","O","O"],
+["X","O","X","X","X","X","X","X","X","X"],
+["X","X","X","X","X","X","X","X","X","X"],
+["X","X","X","X","X","X","X","X","X","O"],
+["O","X","X","X","X","X","X","X","X","X"],
+["X","X","X","X","X","X","X","X","X","X"],
+["O","X","X","X","X","X","X","X","X","O"],
+["O","X","X","X","X","X","X","X","X","X"],
+["X","X","X","X","X","X","X","X","O","O"],
+["X","X","X","O","O","X","O","X","X","O"]]
+"""
